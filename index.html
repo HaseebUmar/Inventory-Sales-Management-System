@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>StockFlow — Inventory & Sales Management</title>
+
+    <meta
+        name="description"
+        content="A premium inventory and sales management dashboard demo."
+    >
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-mark">S</div>
+
+            <div>
+                <h1>StockFlow</h1>
+                <span>Smart business tools</span>
+            </div>
+
+            <button
+                class="sidebar-close"
+                id="sidebarClose"
+                aria-label="Close navigation"
+            >
+                ×
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-label">MAIN MENU</p>
+
+            <button class="nav-item active" data-page="dashboard">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-page="products">
+                <span class="nav-icon">▦</span>
+                <span>Products</span>
+            </button>
+
+            <button class="nav-item" data-page="inventory">
+                <span class="nav-icon">▤</span>
+                <span>Inventory</span>
+            </button>
+
+            <button class="nav-item" data-page="sales">
+                <span class="nav-icon">↗</span>
+                <span>Sales</span>
+            </button>
+
+            <button class="nav-item" data-page="reports">
+                <span class="nav-icon">◫</span>
+                <span>Reports</span>
+            </button>
+
+            <p class="nav-label settings-label">SYSTEM</p>
+
+            <button class="nav-item" data-page="settings">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="demo-badge">
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>Demo Mode</strong>
+                    <small>Portfolio project</small>
+                </div>
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+        <!-- Header -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    class="menu-button"
+                    id="menuButton"
+                    aria-label="Open navigation"
+                >
+                    ☰
+                </button>
+
+                <div>
+                    <p class="eyebrow">STOCKFLOW</p>
+                    <h2 id="pageTitle">Dashboard</h2>
+                </div>
+
+            </div>
+
+            <div class="topbar-actions">
+
+                <div class="global-search">
+                    <span>⌕</span>
+                    <input
+                        type="search"
+                        id="globalSearch"
+                        placeholder="Search products, sales..."
+                        aria-label="Global search"
+                    >
+                </div>
+
+                <button
+                    class="icon-button notification-button"
+                    id="notificationButton"
+                    aria-label="Notifications"
+                >
+                    ♢
+                    <span class="notification-count" id="notificationCount">
+                        0
+                    </span>
+                </button>
+
+                <div class="profile">
+
+                    <div class="avatar">A</div>
+
+                    <div class="profile-info">
+                        <strong>Admin</strong>
+                        <span>Demo Account</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- Content -->
+        <div class="content">
+
+            <!-- ================= DASHBOARD ================= -->
+            <section class="page-section active" id="dashboardPage">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="section-kicker">OVERVIEW</p>
+                        <h1>Good to see you.</h1>
+                        <p>
+                            Here's what's happening with your business today.
+                        </p>
+                    </div>
+
+                    <button
+                        class="primary-button"
+                        id="dashboardAddSale"
+                    >
+                        <span>＋</span>
+                        New Sale
+                    </button>
+
+                </div>
+
+                <!-- Statistics -->
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon green">▦</div>
+                            <span class="stat-label">Products</span>
+                        </div>
+
+                        <strong id="totalProducts">0</strong>
+
+                        <p>Products in catalog</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon blue">▤</div>
+                            <span class="stat-label">Stock</span>
+                        </div>
+
+                        <strong id="totalStock">0</strong>
+
+                        <p>Total units available</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon purple">↗</div>
+                            <span class="stat-label">Today's Sales</span>
+                        </div>
+
+                        <strong id="todaySales">Rs. 0</strong>
+
+                        <p id="todaySalesCount">0 orders today</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon orange">₨</div>
+                            <span class="stat-label">Revenue</span>
+                        </div>
+
+                        <strong id="totalRevenue">Rs. 0</strong>
+
+                        <p>All-time revenue</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon teal">◆</div>
+                            <span class="stat-label">Est. Profit</span>
+                        </div>
+
+                        <strong id="totalProfit">Rs. 0</strong>
+
+                        <p>Estimated gross profit</p>
+                    </article>
+
+                    <article class="stat-card warning-card">
+                        <div class="stat-top">
+                            <div class="stat-icon red">!</div>
+                            <span class="stat-label">Low Stock</span>
+                        </div>
+
+                        <strong id="lowStockCount">0</strong>
+
+                        <p>Products need attention</p>
+                    </article>
+
+                </div>
+
+                <!-- Charts -->
+                <div class="dashboard-grid">
+
+                    <article class="panel sales-chart-panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <p class="section-kicker">PERFORMANCE</p>
+                                <h2>Sales Overview</h2>
+                            </div>
+
+                            <span class="period-badge">
+                                Last 7 days
+                            </span>
+
+                        </div>
+
+                        <div class="chart-wrapper">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+
+                    </article>
+
+                    <article class="panel category-panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <p class="section-kicker">BREAKDOWN</p>
+                                <h2>Sales by Category</h2>
+                            </div>
+
+                        </div>
+
+                        <div id="categoryChart" class="category-chart"></div>
+
+                    </article>
+
+                </div>
+
+                <!-- Recent Sales / Low Stock -->
+                <div class="dashboard-grid lower-grid">
+
+                    <article class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <p class="section-kicker">TRANSACTIONS</p>
+                                <h2>Recent Sales</h2>
+                            </div>
+
+                            <button
+                                class="text-button"
+                                data-page-link="sales"
+                            >
+                                View all →
+                            </button>
+
+                        </div>
+
+                        <div
+                            class="table-container"
+                            id="recentSalesTable"
+                        ></div>
+
+                    </article>
+
+                    <article class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+                                <p class="section-kicker">ATTENTION</p>
+                                <h2>Low Stock</h2>
+                            </div>
+
+                            <button
+                                class="text-button"
+                                data-page-link="inventory"
+                            >
+                                Inventory →
+                            </button>
+
+                        </div>
+
+                        <div
+                            class="low-stock-list"
+                            id="dashboardLowStock"
+                        ></div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!-- ================= PRODUCTS ================= -->
+            <section class="page-section" id="productsPage">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="section-kicker">CATALOG</p>
+                        <h1>Products</h1>
+                        <p>Manage your inventory products.</p>
+                    </div>
+
+                    <button
+                        class="primary-button"
+                        id="addProductButton"
+                    >
+                        ＋ Add Product
+                    </button>
+
+                </div>
+
+                <div class="filter-panel">
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input
+                            type="search"
+                            id="productSearch"
+                            placeholder="Search by name, SKU or category..."
+                        >
+                    </div>
+
+                    <select id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Grocery">Grocery</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Cosmetics">Cosmetics</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <select id="stockFilter">
+                        <option value="all">All Stock</option>
+                        <option value="in-stock">In Stock</option>
+                        <option value="low-stock">Low Stock</option>
+                        <option value="out-of-stock">Out of Stock</option>
+                    </select>
+
+                    <select id="productSort">
+                        <option value="default">Sort by</option>
+                        <option value="name-asc">Name A-Z</option>
+                        <option value="price-low">Price Low-High</option>
+                        <option value="price-high">Price High-Low</option>
+                        <option value="stock-low">Stock Low-High</option>
+                    </select>
+
+                </div>
+
+                <div class="panel">
+
+                    <div class="table-container" id="productsTable"></div>
+
+                </div>
+
+            </section>
+
+            <!-- ================= INVENTORY ================= -->
+            <section class="page-section" id="inventoryPage">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="section-kicker">STOCK CONTROL</p>
+                        <h1>Inventory</h1>
+                        <p>Monitor your current stock levels.</p>
+                    </div>
+
+                </div>
+
+                <div class="mini-stats">
+
+                    <div class="mini-stat">
+                        <span>Total Items</span>
+                        <strong id="inventoryTotalItems">0</strong>
+                    </div>
+
+                    <div class="mini-stat">
+                        <span>Inventory Value</span>
+                        <strong id="inventoryValue">Rs. 0</strong>
+                    </div>
+
+                    <div class="mini-stat warning">
+                        <span>Low Stock</span>
+                        <strong id="inventoryLowStock">0</strong>
+                    </div>
+
+                    <div class="mini-stat danger">
+                        <span>Out of Stock</span>
+                        <strong id="inventoryOutStock">0</strong>
+                    </div>
+
+                </div>
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <p class="section-kicker">CURRENT STOCK</p>
+                            <h2>Inventory Levels</h2>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="table-container"
+                        id="inventoryTable"
+                    ></div>
+
+                </div>
+
+            </section>
+
+            <!-- ================= SALES ================= -->
+            <section class="page-section" id="salesPage">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="section-kicker">TRANSACTIONS</p>
+                        <h1>Sales</h1>
+                        <p>Track and manage your sales.</p>
+                    </div>
+
+                    <button
+                        class="primary-button"
+                        id="newSaleButton"
+                    >
+                        ＋ New Sale
+                    </button>
+
+                </div>
+
+                <div class="filter-panel">
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input
+                            type="search"
+                            id="salesSearch"
+                            placeholder="Search sales..."
+                        >
+                    </div>
+
+                    <select id="salesStatusFilter">
+                        <option value="all">All Status</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+
+                    <select id="salesSort">
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="revenue-high">Highest Revenue</option>
+                        <option value="profit-high">Highest Profit</option>
+                    </select>
+
+                </div>
+
+                <div class="panel">
+
+                    <div
+                        class="table-container"
+                        id="salesTable"
+                    ></div>
+
+                </div>
+
+            </section>
+
+            <!-- ================= REPORTS ================= -->
+            <section class="page-section" id="reportsPage">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="section-kicker">ANALYTICS</p>
+                        <h1>Reports</h1>
+                        <p>Understand your business performance.</p>
+                    </div>
+
+                </div>
+
+                <div class="stats-grid report-stats">
+
+                    <article class="stat-card">
+                        <span class="stat-label">Total Sales</span>
+                        <strong id="reportSales">0</strong>
+                        <p>Recorded transactions</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-label">Revenue</span>
+                        <strong id="reportRevenue">Rs. 0</strong>
+                        <p>Total sales revenue</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-label">Estimated Profit</span>
+                        <strong id="reportProfit">Rs. 0</strong>
+                        <p>Estimated gross profit</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-label">Average Order</span>
+                        <strong id="reportAverage">Rs. 0</strong>
+                        <p>Average transaction value</p>
+                    </article>
+
+                </div>
+
+                <div class="dashboard-grid">
+
+                    <article class="panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <p class="section-kicker">PRODUCTS</p>
+                                <h2>Product Performance</h2>
+                            </div>
+                        </div>
+
+                        <div
+                            class="table-container"
+                            id="productPerformanceTable"
+                        ></div>
+
+                    </article>
+
+                    <article class="panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <p class="section-kicker">CATEGORIES</p>
+                                <h2>Category Performance</h2>
+                            </div>
+                        </div>
+
+                        <div
+                            class="table-container"
+                            id="categoryPerformanceTable"
+                        ></div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!-- ================= SETTINGS ================= -->
+            <section class="page-section" id="settingsPage">
+
+                <div class="page-heading">
+
+                    <div>
+                        <p class="section-kicker">SYSTEM</p>
+                        <h1>Settings</h1>
+                        <p>Configure your StockFlow demo.</p>
+                    </div>
+
+                </div>
+
+                <div class="settings-grid">
+
+                    <article class="panel settings-card">
+
+                        <div class="settings-title">
+                            <div class="settings-icon">▣</div>
+
+                            <div>
+                                <h2>Business Information</h2>
+                                <p>Basic information for your dashboard.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label for="businessName">
+                                    Business Name
+                                </label>
+
+                                <input
+                                    id="businessName"
+                                    type="text"
+                                    value="StockFlow Demo"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="currency">
+                                    Currency
+                                </label>
+
+                                <select id="currency">
+                                    <option value="Rs.">PKR — Rs.</option>
+                                    <option value="$">USD — $</option>
+                                    <option value="€">EUR — €</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="defaultThreshold">
+                                    Default Low Stock Threshold
+                                </label>
+
+                                <input
+                                    id="defaultThreshold"
+                                    type="number"
+                                    min="1"
+                                    value="10"
+                                >
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="primary-button"
+                            id="saveSettings"
+                        >
+                            Save Settings
+                        </button>
+
+                    </article>
+
+                    <article class="panel settings-card">
+
+                        <div class="settings-title">
+                            <div class="settings-icon">◐</div>
+
+                            <div>
+                                <h2>Appearance</h2>
+                                <p>Customize the application theme.</p>
+                            </div>
+                        </div>
+
+                        <div class="setting-row">
+
+                            <div>
+                                <strong>Dark Mode</strong>
+                                <p>Use a darker interface.</p>
+                            </div>
+
+                            <label class="switch">
+                                <input
+                                    type="checkbox"
+                                    id="themeToggle"
+                                >
+                                <span class="slider"></span>
+                            </label>
+
+                        </div>
+
+                    </article>
+
+                    <article class="panel settings-card danger-settings">
+
+                        <div class="settings-title">
+                            <div class="settings-icon">⚠</div>
+
+                            <div>
+                                <h2>Data Management</h2>
+                                <p>Manage your locally stored demo data.</p>
+                            </div>
+                        </div>
+
+                        <div class="data-actions">
+
+                            <button
+                                class="secondary-button"
+                                id="resetDemoData"
+                            >
+                                Reset Demo Data
+                            </button>
+
+                            <button
+                                class="danger-button"
+                                id="clearAllData"
+                            >
+                                Clear All Data
+                            </button>
+
+                        </div>
+
+                        <p class="demo-note">
+                            Data is stored only in this browser using
+                            LocalStorage.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+
+            <div>
+                <strong>StockFlow</strong>
+                <span>Inventory & Sales Management Demo</span>
+            </div>
+
+            <p>
+                Built as a frontend portfolio project.
+                © 2026 StockFlow Demo
+            </p>
+
+        </footer>
+
+    </main>
+
+    <!-- ================= PRODUCT MODAL ================= -->
+    <div class="modal-overlay" id="productModal">
+
+        <div
+            class="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="productModalTitle"
+        >
+
+            <div class="modal-header">
+
+                <div>
+                    <p class="section-kicker">CATALOG</p>
+                    <h2 id="productModalTitle">Add Product</h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="productModal"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <form id="productForm">
+
+                <input type="hidden" id="productId">
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+                        <label for="productName">
+                            Product Name *
+                        </label>
+
+                        <input
+                            id="productName"
+                            type="text"
+                            placeholder="e.g. Wireless Mouse"
+                        >
+
+                        <small class="field-error" id="productNameError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productSku">
+                            SKU *
+                        </label>
+
+                        <input
+                            id="productSku"
+                            type="text"
+                            placeholder="e.g. WM-001"
+                        >
+
+                        <small class="field-error" id="productSkuError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productCategory">
+                            Category *
+                        </label>
+
+                        <select id="productCategory">
+                            <option value="">Select category</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Grocery">Grocery</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Cosmetics">Cosmetics</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                        <small
+                            class="field-error"
+                            id="productCategoryError"
+                        ></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purchasePrice">
+                            Purchase Price *
+                        </label>
+
+                        <input
+                            id="purchasePrice"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="0"
+                        >
+
+                        <small
+                            class="field-error"
+                            id="purchasePriceError"
+                        ></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sellingPrice">
+                            Selling Price *
+                        </label>
+
+                        <input
+                            id="sellingPrice"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="0"
+                        >
+
+                        <small
+                            class="field-error"
+                            id="sellingPriceError"
+                        ></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stockQuantity">
+                            Stock Quantity *
+                        </label>
+
+                        <input
+                            id="stockQuantity"
+                            type="number"
+                            min="0"
+                            step="1"
+                            placeholder="0"
+                        >
+
+                        <small
+                            class="field-error"
+                            id="stockQuantityError"
+                        ></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="minimumStock">
+                            Minimum Stock Level *
+                        </label>
+
+                        <input
+                            id="minimumStock"
+                            type="number"
+                            min="1"
+                            step="1"
+                            placeholder="10"
+                        >
+
+                        <small
+                            class="field-error"
+                            id="minimumStockError"
+                        ></small>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="productDescription">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="productDescription"
+                            rows="3"
+                            placeholder="Short product description..."
+                        ></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        data-close-modal="productModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Save Product
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ================= SALE MODAL ================= -->
+    <div class="modal-overlay" id="saleModal">
+
+        <div
+            class="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="saleModalTitle"
+        >
+
+            <div class="modal-header">
+
+                <div>
+                    <p class="section-kicker">TRANSACTION</p>
+                    <h2 id="saleModalTitle">New Sale</h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="saleModal"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <form id="saleForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+                        <label for="customerName">
+                            Customer Name
+                        </label>
+
+                        <input
+                            id="customerName"
+                            type="text"
+                            placeholder="Optional"
+                        >
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="saleProduct">
+                            Select Product *
+                        </label>
+
+                        <select id="saleProduct">
+                            <option value="">
+                                Select available product
+                            </option>
+                        </select>
+
+                        <small
+                            class="field-error"
+                            id="saleProductError"
+                        ></small>
+                    </div>
+
+                    <div class="stock-info" id="saleStockInfo">
+                        Select a product to view available stock.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="saleQuantity">
+                            Quantity *
+                        </label>
+
+                        <input
+                            id="saleQuantity"
+                            type="number"
+                            min="1"
+                            step="1"
+                            value="1"
+                        >
+
+                        <small
+                            class="field-error"
+                            id="saleQuantityError"
+                        ></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="salePrice">
+                            Selling Price
+                        </label>
+
+                        <input
+                            id="salePrice"
+                            type="number"
+                            readonly
+                        >
+                    </div>
+
+                    <div class="sale-summary">
+
+                        <div>
+                            <span>Revenue</span>
+                            <strong id="saleTotal">Rs. 0</strong>
+                        </div>
+
+                        <div>
+                            <span>Estimated Profit</span>
+                            <strong id="saleProfit">Rs. 0</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        data-close-modal="saleModal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Complete Sale
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- ================= DETAILS MODAL ================= -->
+    <div class="modal-overlay" id="detailsModal">
+
+        <div class="modal small-modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <p class="section-kicker">TRANSACTION</p>
+                    <h2>Sale Details</h2>
+                </div>
+
+                <button
+                    class="modal-close"
+                    data-close-modal="detailsModal"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div id="saleDetailsContent"></div>
+
+            <div class="modal-actions">
+
+                <button
+                    class="secondary-button"
+                    data-close-modal="detailsModal"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= CONFIRM MODAL ================= -->
+    <div class="modal-overlay" id="confirmModal">
+
+        <div class="modal small-modal">
+
+            <div class="confirm-icon">!</div>
+
+            <h2 id="confirmTitle">Are you sure?</h2>
+
+            <p id="confirmMessage">
+                This action cannot be undone.
+            </p>
+
+            <div class="modal-actions">
+
+                <button
+                    class="secondary-button"
+                    id="confirmCancel"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    class="danger-button"
+                    id="confirmAction"
+                >
+                    Confirm
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= NOTIFICATIONS ================= -->
+    <div
+        class="notification-popover"
+        id="notificationPopover"
+    >
+        <div class="notification-header">
+            <strong>Notifications</strong>
+            <button id="closeNotifications">×</button>
+        </div>
+
+        <div id="notificationList"></div>
+    </div>
+
+    <!-- Toast -->
+    <div
+        class="toast-container"
+        id="toastContainer"
+        aria-live="polite"
+    ></div>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
